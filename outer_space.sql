@@ -1,7 +1,3 @@
-CREATE TABLE moons(
-    name TEXT PRIMARY KEY NOT NULL UNIQUE
-);
-
 CREATE TABLE stars(
     name TEXT PRIMARY KEY NOT NULL UNIQUE,
     temp_in_kelvin NUMERIC NOT NULL
@@ -10,7 +6,41 @@ CREATE TABLE stars(
 CREATE TABLE planets(
     name TEXT PRIMARY KEY NOT NULL UNIQUE,
     orbital_period INT NOT NULL,
-    star TEXT REFERENCES stars,
-    moons TEXT REFERENCES moons
+    star TEXT REFERENCES stars
 );
+
+CREATE TABLE moons(
+    name TEXT PRIMARY KEY UNIQUE,
+    planet TEXT REFERENCES planets
+);
+
+
+INSERT INTO stars(name, temp_in_kelvin)
+    VALUES
+    ('The Sun', 5800),
+    ('Proxima Centauri', 3042),
+    ('Gliese 876', 3192);
+
+INSERT INTO planets(name, orbital_period, star)
+    VALUES
+    ('Earth', 1.00,'The Sun'),
+    ('Mars', 1.882,'The Sun'),
+    ('Venus', 0.62,'The Sun'),
+    ('Proxima Centauri b', 0.03,'Proxima Centauri'),
+    ('Gliese 876 b', 0.236,'Gliese 876');
+
+INSERT INTO moons(name, planet)
+    VALUES
+    ('The Moon', 'Earth'),
+    ('Phobos', 'Mars'),
+    ('Deimos', 'Mars');
+
+
+
+-- SELECT p.name, p.star, COUNT(p.moons)
+--     FROM planets as p
+--     LEFT JOIN stars as s
+--         ON p.star = s.name
+--     JOIN moons as m
+--         ON p.moons = m.name;
 

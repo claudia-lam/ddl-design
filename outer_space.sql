@@ -35,10 +35,13 @@ INSERT INTO moons(name, planet)
     ('Phobos', 'Mars'),
     ('Deimos', 'Mars');
 
-SELECT p.name, p.star, COUNT(m.planet)
+SELECT p.name, p.star, COUNT(m.name)
     FROM planets as p
     LEFT JOIN stars as s
         ON p.star = s.name
     LEFT JOIN moons as m
         ON m.planet = p.name
+    GROUP BY p.name
+    ORDER BY p.name;
+
 

@@ -8,7 +8,7 @@ CREATE TABLE bikes(
     id VARCHAR(25) PRIMARY KEY,
     bike_name VARCHAR(25) NOT NULL,
     cost NUMERIC NOT NULL
-)
+);
 
 CREATE TABLE orders(
     id SERIAL PRIMARY KEY,
@@ -17,5 +17,10 @@ CREATE TABLE orders(
     note VARCHAR(25) NOT NULL,
     total_cost NUMERIC REFERENCES bikes NOT NULL,
     customer TEXT REFERENCES customers NOT NULL
-)
+);
 
+CREATE TABLE bike_order(
+    id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES orders NOT NULL,
+    bike_code VARCHAR(25) REFERENCES bikes NOT NULL
+);

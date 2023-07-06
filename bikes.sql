@@ -12,15 +12,14 @@ CREATE TABLE bikes(
 
 CREATE TABLE orders(
     id SERIAL PRIMARY KEY,
-    bike_model TEXT REFERENCES bikes NOT NULL,
     order_date TIMESTAMP WITH TIME ZONE NOT NULL,
-    note VARCHAR(25) NOT NULL,
-    total_cost NUMERIC REFERENCES bikes NOT NULL,
-    customer TEXT REFERENCES customers NOT NULL
+    customer INT REFERENCES customers NOT NULL
 );
 
-CREATE TABLE bike_order(
+CREATE TABLE bike_orders(
     id SERIAL PRIMARY KEY,
     order_id INT REFERENCES orders NOT NULL,
-    bike_code VARCHAR(25) REFERENCES bikes NOT NULL
+    bike_code VARCHAR(25) REFERENCES bikes NOT NULL,
+    note VARCHAR(25) NOT NULL,
+    cost NUMERIC NOT NULL
 );
